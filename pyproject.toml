@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "document-parsing"
+version = "0.1.0"
+description = ""
+authors = ["danielsyahputra <dnlshp@gmail.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+docling = "^2.21.0"
+
+
+[tool.poetry.group.notebook.dependencies]
+ipykernel = "^6.29.5"
+jupyterlab = "^4.3.5"
+ipywidgets = "^8.1.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
