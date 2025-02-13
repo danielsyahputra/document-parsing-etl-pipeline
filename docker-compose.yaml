@@ -61,6 +61,10 @@ x-airflow-common:
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
     AIRFLOW__CORE__LOAD_EXAMPLES: 'false'
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
+
+    # Conn
+    AIRFLOW_CONN_TEST_FILE: 'file://?path=/opt/airflow/docs'
+    
     # yamllint disable rule:line-length
     # Use simple http server on scheduler for health checks
     # See https://airflow.apache.org/docs/apache-airflow/stable/administration-and-deployment/logging-monitoring/check-health.html#scheduler-health-check-server
@@ -75,8 +79,8 @@ x-airflow-common:
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
-    - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
-    - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+    - ${AIRFLOW_PROJ_DIR:-.}/docs:/opt/airflow/docs
+    - ${AIRFLOW_PROJ_DIR:-.}/pdf_folder:/opt/airflow/pdf_folder
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -86,6 +90,12 @@ x-airflow-common:
       condition: service_healthy
 
 services:
+  parser:
+    image: pdf-parser
+    volumes:
+      - ${AIRFLOW_PROJ_DIR:-.}/pdf_folder:/watch_folder
+    restart: unless-stopped
+
   postgres:
     image: postgres:13
     environment:
