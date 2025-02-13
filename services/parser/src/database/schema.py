@@ -53,4 +53,5 @@ class ChartData(Base):
         nullable=False
     )
     info = Column(JSON, nullable=True)
+    image_path = Column(String, nullable=True)
     document = relationship("Document", back_populates="charts")

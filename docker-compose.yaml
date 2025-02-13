@@ -219,7 +219,7 @@ services:
         disk_available=$$(df / | tail -1 | awk '{print $$4}')
         warning_resources="false"
         if (( mem_available < 4000 )) ; then
-          echo
+          echominio_data:
           echo -e "\033[1;33mWARNING!!!: Not enough memory available for Docker.\e[0m"
           echo "At least 4GB of memory required. You have $$(numfmt --to iec $$((mem_available * one_meg)))"
           echo
@@ -295,6 +295,36 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+  
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio-setup:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 10 &&
+      mc config host add myminio http://minio:9000 minioadmin minioadmin &&
+      mc mb myminio/documents || true &&
+      mc policy set public myminio/documents || true
+      "
 
 volumes:
   postgres-db-volume:
+  minio_data:
