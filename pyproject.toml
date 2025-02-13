@@ -9,10 +9,14 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10,<3.13"
 docling = "^2.21.0"
-apache-airflow = "^2.10.5"
 pyrootutils = "^1.0.4"
 watchdog = "^6.0.0"
 pymupdf = "^1.25.3"
+pytz = "^2025.1"
+sqlalchemy = "^2.0.38"
+sqlmodel = "^0.0.22"
+sqlalchemy-utils = "^0.41.2"
+psycopg2-binary = "^2.9.10"
 
 
 [tool.poetry.group.notebook.dependencies]
