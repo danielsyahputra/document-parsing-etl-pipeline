@@ -93,6 +93,8 @@ services:
     image: danielsyahputra13/pdf-parser:latest
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}/docs/cache:/cache
+      - ~/.EasyOCR:~/.EasyOCR
+      - ~/.cache/huggingface:~/.cache/huggingface
     restart: unless-stopped
     depends_on:
       - minio
@@ -102,7 +104,7 @@ services:
   api-parser:
     image: danielsyahputra13/api-parser:latest
     volumes:
-      - ${AIRFLOW_PROJ_DIR:-.}/docs/cache:/cache
+      - ${AIRFLOW_PROJ_DIR:-.}/docs/new:/cache
     restart: unless-stopped
     ports:
       - "8000:8000"
