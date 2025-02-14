@@ -88,7 +88,7 @@ async def upload_document(file: UploadFile = File(...)):
 async def get_documents():
     """Get all processed documents."""
     try:
-        documents = document_repo.get_all()
+        documents = document_repo.get_multi()
         return [
             DocumentResponse(
                 id=doc.id,

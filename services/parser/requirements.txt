@@ -2,7 +2,7 @@ watchdog
 pymupdf
 requests
 docling
-pymupdf
+# pymupdf
 pytz
 sqlalchemy
 sqlmodel
@@ -12,5 +12,5 @@ minio
 datasets
 matplotlib
 setuptools
-pytesseract
+# pytesseract
 spacy
