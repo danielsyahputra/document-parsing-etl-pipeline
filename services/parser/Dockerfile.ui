@@ -1,0 +1,15 @@
+FROM python:3.10-slim
+
+# Install dependencies
+WORKDIR /app
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY . .
+
+RUN pip install requests pandas streamlit
+
+CMD ["streamlit", "run", "demo.py"]

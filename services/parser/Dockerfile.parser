@@ -11,7 +11,7 @@ RUN apt-get update && \
 # Install Python packages
 COPY . .
 
-RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
 
 
-CMD ["python", "pdf_processor.py"]
+CMD ["python", "main.py"]

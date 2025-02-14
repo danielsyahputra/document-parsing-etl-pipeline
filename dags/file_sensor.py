@@ -21,7 +21,7 @@ def move_to_processing_folder(**context):
     fs_hook = FSHook(fs_conn_id='test_file')
     base_path = fs_hook.get_path()
     
-    filepath_pattern = os.path.join(base_path, "/opt/airflow/docs/*.pdf")
+    filepath_pattern = os.path.join(base_path, "/opt/airflow/docs/new/*.pdf")
     
     files = glob.glob(filepath_pattern)
     print(f"Files found using pattern {filepath_pattern}: {files}")
@@ -41,7 +41,7 @@ def process_single_file(file_path):
     print(f"Processing file path: {file_path}")
     filename = os.path.basename(file_path)
     
-    destination_dir = '/opt/airflow/pdf_folder'
+    destination_dir = '/opt/airflow/docs/cache'
     os.makedirs(destination_dir, exist_ok=True)
     
     destination = os.path.join(destination_dir, filename)
@@ -50,6 +50,7 @@ def process_single_file(file_path):
     try:
         shutil.copy2(file_path, destination)
         print(f"Successfully copied file to {destination}")
+        os.remove(file_path)
         
 
     except Exception as e:
@@ -61,7 +62,7 @@ def test_connection(**context):
     base_path = fs_hook.get_path()
     print(f"Base path from connection: {base_path}")
     
-    pdf_pattern = os.path.join(base_path, "docs/*.pdf")
+    pdf_pattern = os.path.join(base_path, "docs/new/*.pdf")
     files = glob.glob(pdf_pattern)
     print(f"PDF pattern being checked: {pdf_pattern}")
     print(f"Files found: {files}")
@@ -76,7 +77,7 @@ with DAG(
 
     wait_for_file = FileSensor(
         task_id="wait_for_file",
-        filepath="/opt/airflow/docs/*.pdf", 
+        filepath="/opt/airflow/docs/new/*.pdf", 
         fs_conn_id="test_file",
         poke_interval=10,
         timeout=60*5

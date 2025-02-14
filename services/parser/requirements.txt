@@ -1,3 +1,16 @@
 watchdog
 pymupdf
 requests
+docling
+pymupdf
+pytz
+sqlalchemy
+sqlmodel
+sqlalchemy-utils
+psycopg2-binary
+minio
+datasets
+matplotlib
+setuptools
+pytesseract
+spacy

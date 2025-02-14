@@ -118,6 +118,7 @@ class ChartRepository(BaseRepository[ChartData]):
         try:
             chart = ChartData(
                 document_id=document_id,
+                image_path=chart_info.get("image_path"),
                 info=chart_info
             )
             self.session.add(chart)

@@ -80,7 +80,6 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/docs:/opt/airflow/docs
-    - ${AIRFLOW_PROJ_DIR:-.}/pdf_folder:/opt/airflow/pdf_folder
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -93,8 +92,31 @@ services:
   parser:
     image: pdf-parser
     volumes:
-      - ${AIRFLOW_PROJ_DIR:-.}/pdf_folder:/watch_folder
+      - ${AIRFLOW_PROJ_DIR:-.}/docs/cache:/cache
     restart: unless-stopped
+    depends_on:
+      - minio
+      - postgres
+      - airflow-webserver
+
+  api-parser:
+    image: api-parser
+    volumes:
+      - ${AIRFLOW_PROJ_DIR:-.}/docs/cache:/cache
+    restart: unless-stopped
+    depends_on:
+      - minio
+      - postgres
+      - airflow-webserver
+      - pdf-parser
+
+  ui-parser:
+    image: api-parser
+    volumes:
+      - ${AIRFLOW_PROJ_DIR:-.}/docs/cache:/cache
+    restart: unless-stopped
+    depends_on:
+      - api-parser
 
   postgres:
     image: postgres:13

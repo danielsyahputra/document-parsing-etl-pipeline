@@ -23,6 +23,10 @@ matplotlib = "^3.10.0"
 setuptools = "^75.8.0"
 pytesseract = "^0.3.13"
 spacy = "^3.8.4"
+uvicorn = "^0.34.0"
+fastapi = "^0.115.8"
+streamlit = "^1.42.0"
+python-multipart = "^0.0.20"
 
 
 [tool.poetry.group.notebook.dependencies]

@@ -119,8 +119,7 @@ class IntegratedDocumentProcessor:
         image_bytes = io.BytesIO()
         image.save(image_bytes, format="PNG")
         
-        image_path = f"document_{document_id}/{image_type}_{index}.png"
-        self.minio.save_image(
+        image_path = self.minio.save_image(
             image_data=image_bytes.getvalue(),
             document_id=document_id,
             chart_id=index
@@ -236,6 +235,7 @@ class IntegratedDocumentProcessor:
                     chart_info={
                         "type": chart_info["type"],
                         "index": chart_info["index"],
+                        "image_path": chart_info["image_path"],
                         "metadata": chart_info["metadata"]
                     },
                 )
