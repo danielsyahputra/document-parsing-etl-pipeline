@@ -7,6 +7,10 @@
 
 > An intelligent document processing system that automatically extracts text, entities, and images from PDF documents. The system features automated document watching, database storage, and a user-friendly web interface.
 
+## 🚀 Diagram
+![image](https://github.com/user-attachments/assets/d5ca6675-a3a5-40cb-8faf-2d21ec6cb26c)
+
+
 ## 🚀 Features
 
 - **Automated Document Processing**
