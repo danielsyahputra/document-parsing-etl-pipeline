@@ -93,8 +93,8 @@ services:
     image: danielsyahputra13/pdf-parser:latest
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}/docs/cache:/cache
-      - ~/.EasyOCR:~/.EasyOCR
-      - ~/.cache/huggingface:~/.cache/huggingface
+      - ${HOME}/.EasyOCR:${HOME}/.EasyOCR
+      - ${HOME}/.cache/huggingface:${HOME}/.cache/huggingface
     restart: unless-stopped
     depends_on:
       - minio
