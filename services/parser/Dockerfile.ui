@@ -10,6 +10,6 @@ RUN apt-get update && \
 
 COPY . .
 
-RUN pip install requests pandas streamlit
+RUN pip install requests pandas streamlit Pillow
 
 CMD ["streamlit", "run", "demo.py"]

@@ -10,6 +10,6 @@ RUN apt-get update && \
 
 COPY . .
 
-RUN pip install fastapi uvicorn sqlalchemy pytz sqlmodel sqlalchemy-utils psycopg2-binary minio python-multipart
+RUN pip install fastapi uvicorn sqlalchemy pytz sqlmodel sqlalchemy-utils psycopg2-binary minio python-multipart Pillow
 
 CMD ["python", "api.py"]

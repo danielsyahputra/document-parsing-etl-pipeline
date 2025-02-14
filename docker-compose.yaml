@@ -90,7 +90,7 @@ x-airflow-common:
 
 services:
   parser:
-    image: pdf-parser
+    image: danielsyahputra13/pdf-parser:latest
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}/docs/cache:/cache
     restart: unless-stopped
@@ -100,20 +100,24 @@ services:
       - airflow-webserver
 
   api-parser:
-    image: api-parser
+    image: danielsyahputra13/api-parser:latest
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}/docs/cache:/cache
     restart: unless-stopped
+    ports:
+      - "8000:8000"
     depends_on:
       - minio
       - postgres
       - airflow-webserver
-      - pdf-parser
+      - parser
 
   ui-parser:
-    image: api-parser
+    image: danielsyahputra13/ui-parser:latest
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}/docs/cache:/cache
+    ports:
+      - "8501:8501"
     restart: unless-stopped
     depends_on:
       - api-parser

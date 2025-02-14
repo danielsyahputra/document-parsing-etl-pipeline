@@ -71,7 +71,7 @@ with DAG(
     "pdf_processor_dag",
     default_args=default_args,
     description='Monitor for PDFs and send to processor',
-    schedule_interval=timedelta(minutes=5),
+    schedule_interval=timedelta(minutes=1),
     catchup=False
     ) as dag:
 
