@@ -1,6 +1,3 @@
-# Document Parsing ETL Pipeline
-
-
 # Document Processing System
 
 [![Python 3.8+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
