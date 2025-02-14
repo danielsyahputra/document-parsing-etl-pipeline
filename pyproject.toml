@@ -18,6 +18,11 @@ sqlmodel = "^0.0.22"
 sqlalchemy-utils = "^0.41.2"
 psycopg2-binary = "^2.9.10"
 minio = "^7.2.15"
+datasets = "^3.2.0"
+matplotlib = "^3.10.0"
+setuptools = "^75.8.0"
+pytesseract = "^0.3.13"
+spacy = "^3.8.4"
 
 
 [tool.poetry.group.notebook.dependencies]
